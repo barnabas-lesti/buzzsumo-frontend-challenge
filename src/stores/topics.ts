@@ -1,5 +1,6 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
+
 import http from './utils/http';
 
 type Query = {
@@ -47,16 +48,27 @@ type Topic = {
 const TOPICS_API_URL = 'TODO';
 
 export const useTopicsStore = defineStore('topics', () => {
+  const isLoading = ref<boolean>(false);
   const topics = ref<Topic[]>([]);
+
+  function startLoading() {
+    isLoading.value = true;
+  }
+
+  function stopLoading() {
+    isLoading.value = false;
+  }
 
   function setTopics(newTopics: Topic[]) {
     topics.value = newTopics;
   }
 
   async function fetchTopics() {
+    startLoading();
     const topics = await http.get<Topic[]>(TOPICS_API_URL);
     setTopics(topics);
+    stopLoading();
   }
 
-  return { topics, setTopics, fetchTopics };
+  return { topics, isLoading, fetchTopics };
 });
