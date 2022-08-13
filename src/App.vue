@@ -3,6 +3,7 @@ import { useTopicsStore } from './stores/topics';
 const topicsStore = useTopicsStore();
 
 console.log('topicsStore.topics', topicsStore.topics);
+topicsStore.fetchTopics();
 </script>
 
 <template>
