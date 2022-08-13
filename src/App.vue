@@ -1,15 +1,10 @@
 <script setup lang="ts">
-import { useTopicsStore } from './stores/topics';
-const topicsStore = useTopicsStore();
-
-console.log('topicsStore.topics', topicsStore.topics);
-topicsStore.fetchTopics();
+import WordCloud from './components/WordCloud.vue';
 </script>
 
 <template>
   <div class="App">
-    Topics:
-    <pre>{{ JSON.stringify(topicsStore.topics) }}</pre>
+    <WordCloud />
   </div>
 </template>
 
