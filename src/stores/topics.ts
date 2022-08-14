@@ -8,7 +8,7 @@ const TOPICS_API_URL = 'TODO';
 
 export const useTopicsStore = defineStore('topics', () => {
   const isLoading = ref<boolean>(false);
-  const topics = ref<Topic[] | null>(null);
+  const topics = ref<Topic[]>([]);
   const selectedTopic = ref<Topic | null>(null);
 
   function startLoading() {

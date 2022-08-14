@@ -15,7 +15,7 @@ topicsStore.fetchTopics();
       <BaseLoader />
     </div>
     <div v-else class="WordCloud__content">
-      <WordCloudDisplay :topics="topicsStore.topics" />
+      <WordCloudDisplay :uid="'1'" :topics="topicsStore.topics" />
       <WordCloudMetaData :topic="topicsStore.selectedTopic" />
     </div>
   </div>
