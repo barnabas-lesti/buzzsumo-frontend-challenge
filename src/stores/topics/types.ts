@@ -27,7 +27,7 @@ type Sentiment = {
   positive: number;
 };
 
-export type Topic = {
+export type TopicSource = {
   id: string;
   label: string;
   volume: number;
@@ -38,4 +38,12 @@ export type Topic = {
   days: Day[];
   pageType: PageType;
   queries: Query[];
+};
+
+export type Topic = {
+  id: string;
+  label: string;
+  volume: number;
+  sentiment: Sentiment;
+  sentimentScore: number;
 };

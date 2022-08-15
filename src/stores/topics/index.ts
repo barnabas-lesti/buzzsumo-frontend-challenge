@@ -1,10 +1,8 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 
-import http from '../utils/http';
-import type { Topic } from './types';
-
-const TOPICS_API_URL = 'TODO';
+import { env, http } from '../utils';
+import type { Topic, TopicSource } from './types';
 
 export const useTopicsStore = defineStore('topics', () => {
   const isLoading = ref<boolean>(false);
@@ -17,27 +15,42 @@ export const useTopicsStore = defineStore('topics', () => {
       null
   );
 
-  function startLoading(): void {
-    isLoading.value = true;
-  }
-
-  function stopLoading(): void {
-    isLoading.value = false;
-  }
-
   function selectTopic(topicId: string): void {
     selectedTopicId.value = topicId;
   }
 
-  function setTopics(newTopics: Topic[]): void {
+  async function fetchTopics(): Promise<void> {
+    _startLoading();
+    const { topics: topicSources } = await http.get<{ topics: TopicSource[] }>(
+      env.CLIENT_TOPICS_API_URL
+    );
+    const topics = _mapTopicSourcesToTopics(topicSources);
+    _setTopics(topics);
+    _stopLoading();
+  }
+
+  function _startLoading(): void {
+    isLoading.value = true;
+  }
+
+  function _stopLoading(): void {
+    isLoading.value = false;
+  }
+
+  function _setTopics(newTopics: Topic[]): void {
     topics.value = newTopics;
   }
 
-  async function fetchTopics(): Promise<void> {
-    startLoading();
-    const topics = await http.get<Topic[]>(TOPICS_API_URL);
-    setTopics(topics);
-    stopLoading();
+  function _mapTopicSourcesToTopics(topicSources: TopicSource[]): Topic[] {
+    return topicSources.map(
+      ({ id, label, volume, sentiment, sentimentScore }) => ({
+        id,
+        label,
+        volume,
+        sentiment,
+        sentimentScore,
+      })
+    );
   }
 
   return {
