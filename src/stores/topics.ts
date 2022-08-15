@@ -11,8 +11,10 @@ export const useTopicsStore = defineStore('topics', () => {
   const topics = ref<Topic[]>([]);
   const selectedTopicId = ref<string>('');
 
-  const selectedTopic = computed(
-    () => topics.value.filter((topic) => selectedTopicId.value === topic.id)[0]
+  const selectedTopic = computed<Topic | null>(
+    () =>
+      topics.value.filter((topic) => selectedTopicId.value === topic.id)[0] ||
+      null
   );
 
   function startLoading() {
