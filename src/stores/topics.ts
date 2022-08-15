@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 
 import type Topic from '../types/Topic';
@@ -8,8 +8,12 @@ const TOPICS_API_URL = 'TODO';
 
 export const useTopicsStore = defineStore('topics', () => {
   const isLoading = ref<boolean>(false);
-  const topics = ref<Topic[] | null>(null);
-  const selectedTopic = ref<Topic | null>(null);
+  const topics = ref<Topic[]>([]);
+  const selectedTopicId = ref<string>('');
+
+  const selectedTopic = computed(
+    () => topics.value.filter((topic) => selectedTopicId.value === topic.id)[0]
+  );
 
   function startLoading() {
     isLoading.value = true;
@@ -19,8 +23,8 @@ export const useTopicsStore = defineStore('topics', () => {
     isLoading.value = false;
   }
 
-  function selectTopic(topic: Topic) {
-    selectedTopic.value = topic;
+  function selectTopic(topicId: string) {
+    selectedTopicId.value = topicId;
   }
 
   function setTopics(newTopics: Topic[]) {
@@ -34,5 +38,12 @@ export const useTopicsStore = defineStore('topics', () => {
     stopLoading();
   }
 
-  return { isLoading, topics, selectedTopic, selectTopic, fetchTopics };
+  return {
+    isLoading,
+    topics,
+    selectedTopic,
+    selectedTopicId,
+    selectTopic,
+    fetchTopics,
+  };
 });
