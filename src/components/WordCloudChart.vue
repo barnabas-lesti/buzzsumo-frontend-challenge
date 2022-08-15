@@ -118,9 +118,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="WordCloudDisplay">
-    <div ref="chartElement" class="WordCloudDisplay__chart"></div>
-  </div>
+  <div class="WordCloudChart" ref="chartElement"></div>
 </template>
-
-<style lang="scss"></style>
