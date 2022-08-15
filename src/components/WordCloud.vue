@@ -8,7 +8,7 @@ import { useTopicsStore } from '../stores/topics';
 const topicsStore = useTopicsStore();
 topicsStore.fetchTopics();
 
-function onSelect(id: string) {
+function onSelect(id: string): void {
   topicsStore.selectTopic(id);
 }
 </script>

@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue';
 import * as Highcharts from 'highcharts';
 import WordCloud from 'highcharts/modules/wordcloud';
 
-import type Topic from '../types/Topic';
+import type { Topic } from '../stores/topics/types';
 
 interface TopicPoint extends Highcharts.Point {
   id: string;
@@ -18,6 +18,12 @@ enum TopicColor {
 enum WordCloudEvent {
   SELECT = 'select',
 }
+</script>
+
+<script setup lang="ts">
+const props = defineProps<{ selectedTopicId: string; topics: Topic[] }>();
+const chartElement = ref<HTMLElement>();
+const emit = defineEmits<{ (e: WordCloudEvent.SELECT, id: string): void }>();
 
 /**
  * Returns with the appropriate color for a topic based on the sentiment score provided.
@@ -96,12 +102,6 @@ function createWordCloud(
     ],
   });
 }
-</script>
-
-<script setup lang="ts">
-const props = defineProps<{ selectedTopicId: string; topics: Topic[] }>();
-const chartElement = ref<HTMLElement>();
-const emit = defineEmits<{ (e: WordCloudEvent.SELECT, id: string): void }>();
 
 /**
  * Emits the select event if the currently selected topic id is not the same as the clicked topic id.
