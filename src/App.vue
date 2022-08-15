@@ -7,5 +7,3 @@ import WordCloud from './components/WordCloud.vue';
     <WordCloud />
   </div>
 </template>
-
-<style lang="scss"></style>

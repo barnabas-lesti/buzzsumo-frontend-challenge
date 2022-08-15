@@ -9,34 +9,24 @@ const props = defineProps<{
 <template>
   <div class="WordCloudMetadataMention">
     {{ props.label }}:
-    <span
-      :class="[
-        'WordCloudMetadataMention__count',
-        props.type === 'positive'
-          ? 'WordCloudMetadataMention__count--positive'
-          : null,
-        props.type === 'negative'
-          ? 'WordCloudMetadataMention__count--negative'
-          : null,
-      ]"
-    >
+    <span :class="['count', props.type]">
       {{ props.count || 0 }}
     </span>
   </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .WordCloudMetadataMention {
-  &__count {
+  .count {
     font-weight: bold;
+  }
 
-    &--positive {
-      color: green;
-    }
+  .positive {
+    color: #008000;
+  }
 
-    &--negative {
-      color: red;
-    }
+  .negative {
+    color: #ff0000;
   }
 }
 </style>

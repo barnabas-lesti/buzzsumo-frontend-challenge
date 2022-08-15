@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import BaseLoader from './BaseLoader.vue';
-import WordCloudDisplay from './WordCloudDisplay.vue';
+import WordCloudChart from './WordCloudChart.vue';
 import WordCloudMetaData from './WordCloudMetadata.vue';
 
 import { useTopicsStore } from '../stores/topics';
@@ -17,53 +17,53 @@ function onSelect(id: string) {
   <div class="WordCloud">
     <h1>My Topics Challenge</h1>
 
-    <div v-if="topicsStore.isLoading" class="WordCloud__loaderContainer">
+    <div v-if="topicsStore.isLoading" class="loaderContainer">
       <BaseLoader />
     </div>
-    <div v-else class="WordCloud__content">
-      <WordCloudDisplay
+    <div v-else class="content">
+      <WordCloudChart
         :topics="topicsStore.topics"
         :selectedTopicId="topicsStore.selectedTopicId"
         @select="onSelect"
-        class="WordCloud__display"
+        class="chart"
       />
       <WordCloudMetaData
         v-if="topicsStore.selectedTopic"
         :topic="topicsStore.selectedTopic"
-        class="WordCloud__metadata"
+        class="metadata"
       />
     </div>
   </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .WordCloud {
+  $chartHeight: 400px;
   $metadataWidth: 350px;
   $gap: 1rem;
-  $chartHeight: 400px;
 
-  &__loaderContainer {
+  .loaderContainer {
     display: flex;
     align-items: center;
     justify-content: center;
     height: $chartHeight;
   }
 
-  &__display {
+  .chart {
     margin-bottom: $gap;
   }
 
   @media only screen and (min-width: 768px) {
-    &__content {
+    .content {
       display: flex;
       justify-content: space-between;
     }
 
-    &__display {
+    .chart {
       width: calc(100% - $metadataWidth - $gap);
     }
 
-    &__metadata {
+    .metadata {
       width: $metadataWidth;
       display: flex;
       flex-direction: column;

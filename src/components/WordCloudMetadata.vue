@@ -10,14 +10,14 @@ const props = defineProps<{ topic: Topic }>();
 
 <template>
   <div class="WordCloudMetadata">
-    <div class="WordCloudMetadata__heading">
+    <div class="heading">
       Information on topic
-      <span class="WordCloudMetadata__label">"{{ props.topic.label }}"</span>:
+      <span class="label">"{{ props.topic.label }}"</span>:
     </div>
     <WordCloudMetadataMention
       :count="props.topic.volume"
       label="Total Mentions"
-      class="WordCloudMetadata__totalMentions"
+      class="totalMentions"
     />
     <WordCloudMetadataMention
       :count="props.topic.sentiment.positive"
@@ -36,14 +36,14 @@ const props = defineProps<{ topic: Topic }>();
   </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .WordCloudMetadata {
-  &__label {
+  .label {
     font-weight: bold;
   }
 
-  &__heading,
-  &__totalMentions {
+  .heading,
+  .totalMentions {
     margin-bottom: 0.5rem;
   }
 }

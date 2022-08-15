@@ -2,16 +2,16 @@
 
 <template>
   <div class="BaseLoader">
-    <span class="BaseLoader__icon material-icons">sensors</span>
+    <span class="icon material-icons">sensors</span>
   </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .BaseLoader {
   display: flex;
   font-size: 0;
 
-  &__icon {
+  .icon {
     font-size: 3rem;
     animation: rotating 1s linear infinite;
 
