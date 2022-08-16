@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import WordCloud from './components/WordCloud.vue';
+import WordCloud from './components/wordcloud/WordCloud.vue';
 </script>
 
 <template>
