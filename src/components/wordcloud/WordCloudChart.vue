@@ -1,9 +1,9 @@
 <script lang="ts">
-import { ref, onMounted } from 'vue';
+import { defineComponent, type PropType } from 'vue';
 import * as Highcharts from 'highcharts';
 import WordCloud from 'highcharts/modules/wordcloud';
 
-import type { Topic } from '../../stores/topics/types';
+import type { Topic } from '../../stores/topics';
 
 interface TopicPoint extends Highcharts.Point {
   id: string;
@@ -14,98 +14,124 @@ enum TopicColor {
   RED = 'red',
   GREEN = 'green',
 }
-</script>
-
-<script setup lang="ts">
-const props = defineProps<{ selectedTopicId: string; topics: Topic[] }>();
-const chartElement = ref<HTMLElement>();
-const emit = defineEmits<{ (e: 'select', id: string): void }>();
 
 /**
- * Returns with the appropriate color for a topic based on the sentiment score provided.
- * @param sentimentScore Sentiment score of a topic.
+ * WordCloud chart display controlled component.
  */
-function getTopicColor(sentimentScore: number): TopicColor {
-  if (sentimentScore > 60) {
-    return TopicColor.GREEN;
-  }
-  if (sentimentScore < 40) {
-    return TopicColor.RED;
-  }
-  return TopicColor.GREY;
-}
+export default defineComponent({
+  props: {
+    /**
+     * Selected topics ID.
+     * @required
+     */
+    selectedTopicId: {
+      required: true,
+      type: String,
+    },
 
-/**
- * Maps the fields of topics to the required fields of the chart data points.
- * @param topics Topics to map to chart data points.
- * @param selectedTopicId The currently selected topic.
- */
-function convertTopicsToChartData(
-  topics: Topic[],
-  selectedTopicId: string
-): Highcharts.PointOptionsObject[] {
-  return topics.map((topic) => ({
-    name: topic.label,
-    id: topic.id,
-    weight: topic.volume,
-    selected: topic.id === selectedTopicId,
-    color: getTopicColor(topic.sentimentScore),
-  }));
-}
+    /**
+     * Topics to display in the word cloud.
+     * @required
+     */
+    topics: {
+      required: true,
+      type: Array as PropType<Topic[]>,
+    },
+  },
 
-/**
- * Configures and renders the wordcloud chart.
- * @param container Element used to render the wordcloud.
- * @param data Data points of the wordcloud chart.
- */
-function createWordCloud(
-  container: HTMLElement,
-  data: Highcharts.PointOptionsObject[]
-): void {
-  WordCloud(Highcharts);
-  Highcharts.chart(container, {
-    accessibility: {
-      enabled: false,
+  emits: {
+    /**
+     * Emits the `select` event when a word is selected (clicked) in the word cloud.
+     * @param topicId Selected topics ID.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    select: (topicId: string) => true,
+  },
+
+  methods: {
+    /**
+     * Returns with the appropriate color for a topic based on the sentiment score provided.
+     * @param sentimentScore Sentiment score of a topic.
+     * @returns Color of the topic.
+     */
+    getTopicColor(sentimentScore: number): TopicColor {
+      if (sentimentScore > 60) {
+        return TopicColor.GREEN;
+      }
+      if (sentimentScore < 40) {
+        return TopicColor.RED;
+      }
+      return TopicColor.GREY;
     },
-    title: {
-      text: '',
+
+    /**
+     * Maps the fields of topics to the required fields of the chart data points.
+     * @param topics Topics to map to chart data points.
+     * @param selectedTopicId The currently selected topic.
+     * @returns Word cloud compatible data points.
+     */
+    mapTopicsToChartData(
+      topics: Topic[],
+      selectedTopicId: string
+    ): Highcharts.PointOptionsObject[] {
+      return topics.map((topic) => ({
+        name: topic.label,
+        id: topic.id,
+        weight: topic.volume,
+        selected: topic.id === selectedTopicId,
+        color: this.getTopicColor(topic.sentimentScore),
+      }));
     },
-    tooltip: {
-      enabled: false,
+
+    /**
+     * Handles word click events and emits the `select` event with the topic ID.
+     * @param event Event passed to the handler by highcharts.
+     */
+    onWordClick(event: Highcharts.SeriesClickEventObject) {
+      const { id } = event.point as TopicPoint;
+      this.$emit('select', this.selectedTopicId !== id ? id : '');
     },
-    series: [
-      {
-        states: {
-          select: {
-            color: '',
+
+    /**
+     * Configures and renders the wordcloud chart.
+     * @param container Element used to render the wordcloud.
+     * @param data Data points of the wordcloud chart.
+     */
+    createWordCloud(
+      container: HTMLElement,
+      data: Highcharts.PointOptionsObject[]
+    ): void {
+      WordCloud(Highcharts);
+      Highcharts.chart(container, {
+        accessibility: { enabled: false },
+        title: { text: '' },
+        tooltip: { enabled: false },
+        series: [
+          {
+            states: { select: { color: '' } },
+            rotation: { from: 0, to: 0 },
+            animation: false,
+            allowPointSelect: true,
+            cursor: 'pointer',
+            type: 'wordcloud',
+            minFontSize: 14,
+            maxFontSize: 20,
+            style: { fontFamily: `'Nunito', sans-serif`, fontWeight: '500' },
+            data,
+            events: { click: this.onWordClick },
           },
-        },
-        rotation: {
-          from: 0,
-          to: 0,
-        },
-        animation: false,
-        allowPointSelect: true,
-        cursor: 'pointer',
-        type: 'wordcloud',
-        minFontSize: 14,
-        maxFontSize: 20,
-        style: { fontFamily: `'Nunito', sans-serif`, fontWeight: '500' },
-        data,
-        events: {
-          click(event) {
-            const { id } = event.point as TopicPoint;
-            emit('select', props.selectedTopicId !== id ? id : '');
-          },
-        },
-      },
-    ],
-  });
-}
+        ],
+      });
+    },
+  },
 
-onMounted(() => {
-  const data = convertTopicsToChartData(props.topics, props.selectedTopicId);
-  createWordCloud(chartElement.value as HTMLElement, data);
+  mounted() {
+    const chartData = this.mapTopicsToChartData(
+      this.topics,
+      this.selectedTopicId
+    );
+    this.createWordCloud(this.$refs.chartElement as HTMLElement, chartData);
+  },
 });
 </script>
 

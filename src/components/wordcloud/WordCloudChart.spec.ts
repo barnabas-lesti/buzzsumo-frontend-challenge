@@ -55,26 +55,13 @@ describe('WordCloudChart', () => {
 
     it('Should initialize Highcharts', () => {
       expect(chartSpy).toHaveBeenCalledWith(wrapper.element, {
-        accessibility: {
-          enabled: false,
-        },
-        title: {
-          text: '',
-        },
-        tooltip: {
-          enabled: false,
-        },
+        accessibility: { enabled: false },
+        title: { text: '' },
+        tooltip: { enabled: false },
         series: [
           {
-            states: {
-              select: {
-                color: '',
-              },
-            },
-            rotation: {
-              from: 0,
-              to: 0,
-            },
+            states: { select: { color: '' } },
+            rotation: { from: 0, to: 0 },
             animation: false,
             allowPointSelect: true,
             cursor: 'pointer',
@@ -87,9 +74,7 @@ describe('WordCloudChart', () => {
               expect.objectContaining({ color: 'grey', selected: false }),
               expect.objectContaining({ color: 'green', selected: false }),
             ],
-            events: {
-              click: expect.any(Function),
-            },
+            events: { click: expect.any(Function) },
           },
         ],
       });

@@ -1,35 +1,52 @@
 <script lang="ts">
+import { defineComponent, type PropType } from 'vue';
+
+import type { Topic } from '../../stores/topics';
 import WordCloudMetadataMention from './WordCloudMetadataMention.vue';
 
-import type { Topic } from '../../stores/topics/types';
-</script>
+/**
+ * WordCloud topic metadata display controlled component.
+ */
+export default defineComponent({
+  components: {
+    WordCloudMetadataMention,
+  },
 
-<script setup lang="ts">
-const props = defineProps<{ topic: Topic }>();
+  props: {
+    /**
+     * Topic to display the metadata for.
+     * @required
+     */
+    topic: {
+      required: true,
+      type: Object as PropType<Topic>,
+    },
+  },
+});
 </script>
 
 <template>
   <div class="WordCloudMetadata">
     <div class="heading">
       Information on topic
-      <span class="label">"{{ props.topic.label }}"</span>:
+      <span class="label">"{{ topic.label }}"</span>:
     </div>
     <WordCloudMetadataMention
-      :count="props.topic.volume"
+      :count="topic.volume"
       label="Total Mentions"
       class="totalMentions"
     />
     <WordCloudMetadataMention
-      :count="props.topic.sentiment.positive"
+      :count="topic.sentiment.positive"
       label="Positive Mentions"
       type="positive"
     />
     <WordCloudMetadataMention
-      :count="props.topic.sentiment.neutral"
+      :count="topic.sentiment.neutral"
       label="Neutral Mentions"
     />
     <WordCloudMetadataMention
-      :count="props.topic.sentiment.negative"
+      :count="topic.sentiment.negative"
       label="Negative Mentions"
       type="negative"
     />
