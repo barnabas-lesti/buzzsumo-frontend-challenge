@@ -2,7 +2,7 @@
 
 <template>
   <div class="BaseLoader">
-    <span class="icon material-icons">sensors</span>
+    <span class="material-icons">sensors</span>
   </div>
 </template>
 
@@ -11,7 +11,7 @@
   display: flex;
   font-size: 0;
 
-  .icon {
+  .material-icons {
     font-size: 3rem;
     animation: rotating 1s linear infinite;
 

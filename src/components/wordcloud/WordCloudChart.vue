@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue';
 import * as Highcharts from 'highcharts';
 import WordCloud from 'highcharts/modules/wordcloud';
 
-import type { Topic } from '../stores/topics/types';
+import type { Topic } from '../../stores/topics/types';
 
 interface TopicPoint extends Highcharts.Point {
   id: string;
@@ -64,8 +64,7 @@ function convertTopicsToChartData(
  */
 function createWordCloud(
   container: HTMLElement,
-  data: Highcharts.PointOptionsObject[],
-  onTopicClick: (topicId: string) => void
+  data: Highcharts.PointOptionsObject[]
 ): void {
   WordCloud(Highcharts);
   Highcharts.chart(container, {
@@ -95,7 +94,7 @@ function createWordCloud(
         events: {
           click(event) {
             const { id } = event.point as TopicPoint;
-            onTopicClick(id);
+            emit(WordCloudEvent.SELECT, props.selectedTopicId !== id ? id : '');
           },
         },
       },
@@ -103,17 +102,9 @@ function createWordCloud(
   });
 }
 
-/**
- * Emits the select event if the currently selected topic id is not the same as the clicked topic id.
- * @param topicId Id of the clicked topic.
- */
-function onTopicClick(topicId: string) {
-  emit(WordCloudEvent.SELECT, props.selectedTopicId !== topicId ? topicId : '');
-}
-
 onMounted(() => {
   const data = convertTopicsToChartData(props.topics, props.selectedTopicId);
-  createWordCloud(chartElement.value as HTMLElement, data, onTopicClick);
+  createWordCloud(chartElement.value as HTMLElement, data);
 });
 </script>
 

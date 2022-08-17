@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import BaseLoader from './BaseLoader.vue';
+import BaseLoader from '../base/BaseLoader.vue';
 import WordCloudChart from './WordCloudChart.vue';
-import WordCloudMetaData from './WordCloudMetadata.vue';
+import WordCloudMetadata from './WordCloudMetadata.vue';
 
-import { useTopicsStore } from '../stores/topics';
+import { useTopicsStore } from '../../stores/topics';
 
 const topicsStore = useTopicsStore();
 topicsStore.fetchTopics();
@@ -27,7 +27,7 @@ function onSelect(id: string): void {
         @select="onSelect"
         class="chart"
       />
-      <WordCloudMetaData
+      <WordCloudMetadata
         v-if="topicsStore.selectedTopic"
         :topic="topicsStore.selectedTopic"
         class="metadata"
