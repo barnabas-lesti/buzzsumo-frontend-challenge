@@ -14,8 +14,6 @@ npm install
 npm run dev
 ```
 
-
-
 ### Run Unit Tests
 ```sh
 npm run test:unit
