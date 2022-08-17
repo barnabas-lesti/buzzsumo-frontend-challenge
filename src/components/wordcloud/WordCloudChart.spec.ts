@@ -70,6 +70,7 @@ describe('WordCloudChart', () => {
     });
 
     it('Should initialize Highcharts', () => {
+      console.log(WordCloudChart)
       expect(chartSpy).toHaveBeenCalledWith(wrapper.element, {
         accessibility: {
           enabled: false,
@@ -98,7 +99,9 @@ describe('WordCloudChart', () => {
               expect.objectContaining({ color: 'grey', selected: false }),
               expect.objectContaining({ color: 'green', selected: false }),
             ],
-            events: expect.anything(),
+            events: {
+              click: expect.any(Function),
+            },
           },
         ],
       });

@@ -4,18 +4,6 @@ type Query = {
   volume: number;
 };
 
-type PageType = {
-  blog: number;
-  facebook: number;
-  forum: number;
-  general: number;
-  image: number;
-  news: number;
-  review: number;
-  twitter: number;
-  video: number;
-};
-
 type Day = {
   date: string;
   volume: number;
@@ -25,6 +13,18 @@ type Sentiment = {
   negative: number;
   neutral: number;
   positive: number;
+};
+
+export type PageType = {
+  blog: number;
+  facebook: number;
+  forum: number;
+  general: number;
+  image: number;
+  news: number;
+  review: number;
+  twitter: number;
+  video: number;
 };
 
 export type TopicSource = {
