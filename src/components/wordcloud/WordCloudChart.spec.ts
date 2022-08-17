@@ -66,7 +66,7 @@ describe('WordCloudChart', () => {
             allowPointSelect: true,
             cursor: 'pointer',
             type: 'wordcloud',
-            minFontSize: 14,
+            minFontSize: 15,
             maxFontSize: 20,
             style: { fontFamily: `'Nunito', sans-serif`, fontWeight: '500' },
             data: [
