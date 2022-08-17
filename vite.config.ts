@@ -15,5 +15,12 @@ export default defineConfig({
   },
   test: {
     environment: 'jsdom',
+    coverage: {
+      exclude: ['**/*.mock.ts'],
+      statements: 90,
+      branches: 90,
+      functions: 90,
+      lines: 90,
+    },
   },
 });

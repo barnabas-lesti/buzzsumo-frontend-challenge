@@ -14,7 +14,7 @@ import { env } from './env';
 import { http } from './http';
 
 vi.mock('axios');
-vi.mock('./env', () => ({ env: vi.fn() }));
+vi.mock('./env', () => ({ env: {} }));
 
 describe('http', () => {
   const axiosGetMock = axios.get as unknown as Mock;
@@ -30,7 +30,6 @@ describe('http', () => {
   describe('get', () => {
     beforeEach(async () => {
       axiosGetMock.mockResolvedValue({ data: responseMock });
-
       response = await http.get<string>(urlMock);
     });
 
@@ -48,7 +47,6 @@ describe('http', () => {
         env.CLIENT_DEBUG_REQUEST_DELAY = delayMock;
         axiosGetMock.mockResolvedValue({ data: '' });
         sleepSpy = vi.spyOn(http, '_sleep');
-
         response = await http.get<string>(urlMock);
       });
 

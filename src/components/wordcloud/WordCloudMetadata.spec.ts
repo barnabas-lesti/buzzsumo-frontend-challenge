@@ -1,22 +1,10 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { shallowMount, VueWrapper } from '@vue/test-utils';
 
+import { topicMock } from '../../stores/topics/topics.mock';
 import WordCloudMetadata from './WordCloudMetadata.vue';
-import type { Topic } from '../../stores/topics/types';
 
 describe('WordCloudMetadata', () => {
-  const topicMock: Topic = {
-    label: 'labelMock',
-    volume: 30,
-    sentiment: {
-      positive: 5,
-      neutral: 10,
-      negative: 15,
-    },
-    id: '',
-    sentimentScore: 0,
-  };
-
   let wrapper: VueWrapper;
 
   describe('When a valid topic is provided', () => {

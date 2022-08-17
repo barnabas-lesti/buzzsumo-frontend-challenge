@@ -1,6 +1,21 @@
-import { beforeEach, describe, expect, it, vi, type SpyInstance } from 'vitest';
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+  type SpyInstance,
+} from 'vitest';
 import { mount, VueWrapper } from '@vue/test-utils';
 import * as Highcharts from 'highcharts';
+
+import {
+  greenTopicMock,
+  greyTopicMock,
+  redTopicMock,
+} from '../../stores/topics/topics.mock';
+import WordCloudChart from './WordCloudChart.vue';
 
 vi.mock('highcharts', () => ({
   chart: vi.fn(),
@@ -10,44 +25,8 @@ vi.mock('highcharts/modules/wordcloud', () => ({
   default: vi.fn(),
 }));
 
-import WordCloudChart from './WordCloudChart.vue';
-import type { Topic } from '../../stores/topics/types';
-
 describe('WordCloudChart', () => {
-  const redTopicMock: Topic = {
-    sentimentScore: 35,
-    label: 'redTopicMock',
-    volume: 30,
-    sentiment: {
-      positive: 5,
-      neutral: 10,
-      negative: 15,
-    },
-    id: 'redTopicMockId',
-  };
-  const greyTopicMock: Topic = {
-    sentimentScore: 50,
-    label: 'greyTopicMock',
-    volume: 30,
-    sentiment: {
-      positive: 5,
-      neutral: 10,
-      negative: 15,
-    },
-    id: 'greyTopicMockId',
-  };
-  const greenTopicMock: Topic = {
-    sentimentScore: 70,
-    label: 'greenTopicMock',
-    volume: 30,
-    sentiment: {
-      positive: 5,
-      neutral: 10,
-      negative: 15,
-    },
-    id: 'greenTopicMockId',
-  };
-  const topicsMock: Topic[] = [redTopicMock, greyTopicMock, greenTopicMock];
+  const topicsMock = [redTopicMock, greyTopicMock, greenTopicMock];
   const selectedTopicIdMock = redTopicMock.id;
 
   let wrapper: VueWrapper;
@@ -64,13 +43,16 @@ describe('WordCloudChart', () => {
       });
     });
 
+    afterEach(() => {
+      vi.clearAllMocks();
+    });
+
     it('Should render the container', () => {
       expect(WordCloudChart).toBeTruthy();
       expect(wrapper.classes()).toContain('WordCloudChart');
     });
 
     it('Should initialize Highcharts', () => {
-      console.log(WordCloudChart)
       expect(chartSpy).toHaveBeenCalledWith(wrapper.element, {
         accessibility: {
           enabled: false,

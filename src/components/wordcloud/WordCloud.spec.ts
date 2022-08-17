@@ -10,7 +10,7 @@ import {
 import { mount, shallowMount, VueWrapper } from '@vue/test-utils';
 
 import { useTopicsStore } from '../../stores/topics';
-import type { Topic } from '../../stores/topics/types';
+import { topicMock } from '../../stores/topics/topics.mock';
 import WordCloud from './WordCloud.vue';
 import WordCloudChart from './WordCloudChart.vue';
 import WordCloudMetadata from './WordCloudMetadata.vue';
@@ -26,17 +26,6 @@ vi.mock('../../stores/topics', () => ({
 
 describe('WordCloud', () => {
   const useTopicsStoreMock = useTopicsStore as unknown as Mock;
-  const topicMock: Topic = {
-    label: 'labelMock',
-    volume: 30,
-    sentiment: {
-      positive: 5,
-      neutral: 10,
-      negative: 15,
-    },
-    id: '1234',
-    sentimentScore: 45,
-  };
   const selectedTopicMock = topicMock;
   const topicsMock = [topicMock];
 

@@ -15,7 +15,7 @@ type Sentiment = {
   positive: number;
 };
 
-export type PageType = {
+type PageType = {
   blog: number;
   facebook: number;
   forum: number;
