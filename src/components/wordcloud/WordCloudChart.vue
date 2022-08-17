@@ -79,6 +79,11 @@ function createWordCloud(
     },
     series: [
       {
+        states: {
+          select: {
+            color: '',
+          },
+        },
         rotation: {
           from: 0,
           to: 0,
@@ -111,3 +116,11 @@ onMounted(() => {
 <template>
   <div class="WordCloudChart" ref="chartElement"></div>
 </template>
+
+<style scoped lang="scss">
+.WordCloudChart {
+  &:deep(.highcharts-point-select) {
+    text-decoration: underline;
+  }
+}
+</style>

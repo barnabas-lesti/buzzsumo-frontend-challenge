@@ -65,6 +65,11 @@ describe('WordCloudChart', () => {
         },
         series: [
           {
+            states: {
+              select: {
+                color: '',
+              },
+            },
             rotation: {
               from: 0,
               to: 0,
