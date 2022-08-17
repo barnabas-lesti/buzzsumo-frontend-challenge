@@ -13,7 +13,8 @@ describe('WordCloudMetadataMention', () => {
 
   describe('When all props are provided and are valid', () => {
     beforeEach(() => {
-      wrapper = mount(WordCloudMetadataMention, {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      wrapper = mount(WordCloudMetadataMention as any, {
         props: {
           label: labelMock,
           count: validCountMock,
@@ -42,7 +43,8 @@ describe('WordCloudMetadataMention', () => {
 
   describe('When count is not a number', () => {
     beforeEach(() => {
-      wrapper = mount(WordCloudMetadataMention, {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      wrapper = mount(WordCloudMetadataMention as any, {
         props: {
           label: labelMock,
           count: invalidCountMock,

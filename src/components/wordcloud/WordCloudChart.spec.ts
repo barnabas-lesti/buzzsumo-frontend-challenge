@@ -35,7 +35,8 @@ describe('WordCloudChart', () => {
   describe('When a valid topic is provided', () => {
     beforeEach(() => {
       chartSpy = vi.spyOn(Highcharts, 'chart');
-      wrapper = mount(WordCloudChart, {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      wrapper = mount(WordCloudChart as any, {
         props: {
           selectedTopicId: selectedTopicIdMock,
           topics: topicsMock,
