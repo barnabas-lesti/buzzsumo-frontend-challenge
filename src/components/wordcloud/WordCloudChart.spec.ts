@@ -79,5 +79,16 @@ describe('WordCloudChart', () => {
         ],
       });
     });
+
+    describe('When the onWordClick method is called', () => {
+      it('Should emit the "select" event with topic id', async () => {
+        const eventMock = {
+          point: { id: greenTopicMock.id },
+        } as unknown as Highcharts.SeriesClickEventObject;
+
+        (wrapper.vm as unknown as typeof WordCloudChart).onWordClick(eventMock);
+        expect(wrapper.emitted().select[0]).toEqual([greenTopicMock.id]);
+      });
+    });
   });
 });

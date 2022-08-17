@@ -94,5 +94,15 @@ describe('WordCloud', () => {
         ).toBeTruthy();
       });
     });
+
+    describe('When the onSelect method is called', () => {
+      it('Should select a topic in the store', () => {
+        const selectTopicSpy = vi
+          .spyOn(WordCloud.methods, 'selectTopic' as never)
+          .mockReturnValue({});
+        WordCloud.methods?.onSelect(topicMock.id);
+        expect(selectTopicSpy).toHaveBeenCalledWith(topicMock.id);
+      });
+    });
   });
 });
