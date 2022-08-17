@@ -94,5 +94,28 @@ describe('WordCloud', () => {
         ).toBeTruthy();
       });
     });
+
+    describe('When topics array is empty', () => {
+      it('Should render no topics text', () => {
+        useTopicsStoreMock.mockReturnValue({
+          ...useTopicsStoreMock(),
+          topics: [],
+        });
+        wrapper = shallowMount(WordCloud, wrapperOptionsMock);
+        expect(wrapper.find('.noTopicsContainer').text()).toContain(
+          'No Topics to display'
+        );
+      });
+    });
+
+    describe('When the onSelect method is called', () => {
+      it('Should select a topic in the store', () => {
+        const selectTopicSpy = vi
+          .spyOn(WordCloud.methods, 'selectTopic' as never)
+          .mockReturnValue({});
+        WordCloud.methods?.onSelect(topicMock.id);
+        expect(selectTopicSpy).toHaveBeenCalledWith(topicMock.id);
+      });
+    });
   });
 });

@@ -66,7 +66,7 @@ describe('WordCloudChart', () => {
             allowPointSelect: true,
             cursor: 'pointer',
             type: 'wordcloud',
-            minFontSize: 14,
+            minFontSize: 15,
             maxFontSize: 20,
             style: { fontFamily: `'Nunito', sans-serif`, fontWeight: '500' },
             data: [
@@ -77,6 +77,34 @@ describe('WordCloudChart', () => {
             events: { click: expect.any(Function) },
           },
         ],
+      });
+    });
+
+    describe('When the onWordClick method is called', () => {
+      describe('And selected topic is not the same as the previous selection', () => {
+        it('Should emit the "select" event with topic id', async () => {
+          const eventMock = {
+            point: { id: greenTopicMock.id },
+          } as unknown as Highcharts.SeriesClickEventObject;
+
+          (wrapper.vm as unknown as typeof WordCloudChart).onWordClick(
+            eventMock
+          );
+          expect(wrapper.emitted().select[0]).toEqual([greenTopicMock.id]);
+        });
+      });
+
+      describe('And selected topic is the same as the previous selection', () => {
+        it('Should emit the "select" event with empty topic id', async () => {
+          const eventMock = {
+            point: { id: redTopicMock.id },
+          } as unknown as Highcharts.SeriesClickEventObject;
+
+          (wrapper.vm as unknown as typeof WordCloudChart).onWordClick(
+            eventMock
+          );
+          expect(wrapper.emitted().select[0]).toEqual(['']);
+        });
       });
     });
   });

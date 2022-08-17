@@ -51,6 +51,9 @@ export default defineComponent({
     <div v-if="isLoading" class="loaderContainer">
       <BaseLoader />
     </div>
+    <div v-else-if="!topics.length" class="noTopicsContainer">
+      No Topics to display
+    </div>
     <div v-else class="content">
       <WordCloudChart
         :topics="topics"
@@ -73,7 +76,8 @@ export default defineComponent({
   $metadataWidth: 350px;
   $gap: 1rem;
 
-  .loaderContainer {
+  .loaderContainer,
+  .noTopicsContainer {
     display: flex;
     align-items: center;
     justify-content: center;
