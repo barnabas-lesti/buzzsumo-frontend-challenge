@@ -8,6 +8,7 @@ import {
   type Mock,
 } from 'vitest';
 import { mount, shallowMount, VueWrapper } from '@vue/test-utils';
+import { createTestingPinia } from '@pinia/testing';
 
 import { useTopicsStore } from '../../stores/topics';
 import { topicMock } from '../../stores/topics/topics.mock';
@@ -26,6 +27,11 @@ vi.mock('../../stores/topics', () => ({
 
 describe('WordCloud', () => {
   const useTopicsStoreMock = useTopicsStore as unknown as Mock;
+  const wrapperOptionsMock = {
+    global: {
+      plugins: [createTestingPinia({ createSpy: vi.fn })],
+    },
+  };
   const selectedTopicMock = topicMock;
   const topicsMock = [topicMock];
 
@@ -42,7 +48,8 @@ describe('WordCloud', () => {
         topics: topicsMock,
         isLoading: false,
       });
-      wrapper = mount(WordCloud);
+
+      wrapper = mount(WordCloud, wrapperOptionsMock);
     });
 
     afterEach(() => {
@@ -81,7 +88,7 @@ describe('WordCloud', () => {
           ...useTopicsStoreMock(),
           isLoading: true,
         });
-        wrapper = shallowMount(WordCloud);
+        wrapper = shallowMount(WordCloud, wrapperOptionsMock);
         expect(
           wrapper.find('.loaderContainer base-loader-stub').exists()
         ).toBeTruthy();

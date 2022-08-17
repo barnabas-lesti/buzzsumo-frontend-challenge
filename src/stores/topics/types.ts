@@ -1,3 +1,25 @@
+/**
+ * Topic model containing only properties that are used on the client side.
+ */
+export interface Topic {
+  id: string;
+  label: string;
+  volume: number;
+  sentiment: Sentiment;
+  sentimentScore: number;
+}
+
+/**
+ * Full topic model loaded from the API, containing all properties of a Topic.
+ */
+export interface TopicSource extends Topic {
+  type: string;
+  burst: number;
+  days: Day[];
+  pageType: PageType;
+  queries: Query[];
+}
+
 type Query = {
   id: string;
   name: string;
@@ -25,25 +47,4 @@ type PageType = {
   review: number;
   twitter: number;
   video: number;
-};
-
-export type TopicSource = {
-  id: string;
-  label: string;
-  volume: number;
-  type: string;
-  sentiment: Sentiment;
-  sentimentScore: number;
-  burst: number;
-  days: Day[];
-  pageType: PageType;
-  queries: Query[];
-};
-
-export type Topic = {
-  id: string;
-  label: string;
-  volume: number;
-  sentiment: Sentiment;
-  sentimentScore: number;
 };

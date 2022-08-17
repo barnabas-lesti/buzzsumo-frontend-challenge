@@ -1,35 +1,66 @@
-<script setup lang="ts">
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { mapActions, mapState } from 'pinia';
+
+import { useTopicsStore } from '../../stores/topics';
 import BaseLoader from '../base/BaseLoader.vue';
 import WordCloudChart from './WordCloudChart.vue';
 import WordCloudMetadata from './WordCloudMetadata.vue';
 
-import { useTopicsStore } from '../../stores/topics';
+/**
+ * WordCloud main component. Displays topics from the application store in a word cloud.
+ */
+export default defineComponent({
+  components: {
+    BaseLoader,
+    WordCloudChart,
+    WordCloudMetadata,
+  },
 
-const topicsStore = useTopicsStore();
-topicsStore.fetchTopics();
+  computed: {
+    ...mapState(useTopicsStore, [
+      'isLoading',
+      'topics',
+      'selectedTopicId',
+      'selectedTopic',
+    ]),
+  },
 
-function onSelect(id: string): void {
-  topicsStore.selectTopic(id);
-}
+  methods: {
+    ...mapActions(useTopicsStore, ['selectTopic', 'fetchTopics']),
+
+    /**
+     * Handles the topic selection event.
+     * @param topicId ID of the selected topic.
+     */
+    onSelect(topicId: string) {
+      this.selectTopic(topicId);
+    },
+  },
+
+  mounted() {
+    this.fetchTopics();
+  },
+});
 </script>
 
 <template>
   <div class="WordCloud">
     <h1>My Topics Challenge</h1>
 
-    <div v-if="topicsStore.isLoading" class="loaderContainer">
+    <div v-if="isLoading" class="loaderContainer">
       <BaseLoader />
     </div>
     <div v-else class="content">
       <WordCloudChart
-        :topics="topicsStore.topics"
-        :selectedTopicId="topicsStore.selectedTopicId"
+        :topics="topics"
+        :selectedTopicId="selectedTopicId"
         @select="onSelect"
         class="chart"
       />
       <WordCloudMetadata
-        v-if="topicsStore.selectedTopic"
-        :topic="topicsStore.selectedTopic"
+        v-if="selectedTopic"
+        :topic="selectedTopic"
         class="metadata"
       />
     </div>
