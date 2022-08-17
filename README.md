@@ -10,28 +10,31 @@ npm install
 ```
 
 ### Compile and Hot-Reload for Development
-
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
 
-```sh
-npm run build
-```
 
 ### Run Unit Tests
-
 ```sh
 npm run test:unit
 npm run test:unit:coverage 
 ```
 
 ### Lint
-
 ```sh
 npm run lint
+```
+
+### Type-Check, Compile and Minify for Production
+```sh
+npm run build
+```
+
+### Start a production server (after the above)
+```sh
+npm run prod
 ```
 
 ## Recommended IDE Setup

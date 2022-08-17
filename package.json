@@ -1,14 +1,15 @@
 {
-  "name": "buzzsumo-challenge",
+  "name": "buzzsumo-frontend-challenge",
   "version": "0.1.0",
   "author": "Barnabas Lesti <barnabas.lesti@gmail.com>",
-  "description": "BuzzSumo front-end developer challenge",
+  "description": "BuzzSumo Frontend developer challenge",
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check build-only",
     "test:unit": "vitest",
     "test:unit:coverage": "vitest --coverage",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "build": "run-p type-check build-only",
+    "prod": "http-server ./dist",
     "preview": "vite preview --port 4173",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "build-only": "vite build"
@@ -31,6 +32,7 @@
     "c8": "^7.12.0",
     "eslint": "^8.21.0",
     "eslint-plugin-vue": "^9.3.0",
+    "http-server": "^14.1.1",
     "jsdom": "^20.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",

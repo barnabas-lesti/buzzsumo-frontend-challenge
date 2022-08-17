@@ -1,7 +1,7 @@
 <script lang="ts">
 import WordCloudMetadataMention from './WordCloudMetadataMention.vue';
 
-import type { Topic } from '../stores/topics/types';
+import type { Topic } from '../../stores/topics/types';
 </script>
 
 <script setup lang="ts">

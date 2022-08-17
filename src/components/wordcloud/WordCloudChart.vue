@@ -14,16 +14,12 @@ enum TopicColor {
   RED = 'red',
   GREEN = 'green',
 }
-
-enum WordCloudEvent {
-  SELECT = 'select',
-}
 </script>
 
 <script setup lang="ts">
 const props = defineProps<{ selectedTopicId: string; topics: Topic[] }>();
 const chartElement = ref<HTMLElement>();
-const emit = defineEmits<{ (e: WordCloudEvent.SELECT, id: string): void }>();
+const emit = defineEmits<{ (e: 'select', id: string): void }>();
 
 /**
  * Returns with the appropriate color for a topic based on the sentiment score provided.
@@ -99,7 +95,7 @@ function createWordCloud(
         events: {
           click(event) {
             const { id } = event.point as TopicPoint;
-            emit(WordCloudEvent.SELECT, props.selectedTopicId !== id ? id : '');
+            emit('select', props.selectedTopicId !== id ? id : '');
           },
         },
       },
