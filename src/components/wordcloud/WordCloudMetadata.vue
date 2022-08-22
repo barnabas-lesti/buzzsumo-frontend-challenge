@@ -28,25 +28,28 @@ export default defineComponent({
 <template>
   <div class="WordCloudMetadata">
     <div class="heading">
-      Information on topic
+      {{ $t('wordcloud.metadata.info') }}
       <span class="label">"{{ topic.label }}"</span>:
     </div>
     <WordCloudMetadataMention
       :count="topic.volume"
-      label="Total Mentions"
+      :label="$t('wordcloud.metadata.mentions.total')"
       class="totalMentions"
     />
     <WordCloudMetadataMention
       :count="topic.sentiment.positive"
+      :label="$t('wordcloud.metadata.mentions.positive')"
       label="Positive Mentions"
       type="positive"
     />
     <WordCloudMetadataMention
       :count="topic.sentiment.neutral"
+      :label="$t('wordcloud.metadata.mentions.neutral')"
       label="Neutral Mentions"
     />
     <WordCloudMetadataMention
       :count="topic.sentiment.negative"
+      :label="$t('wordcloud.metadata.mentions.negative')"
       label="Negative Mentions"
       type="negative"
     />

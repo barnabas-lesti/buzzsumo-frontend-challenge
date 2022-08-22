@@ -10,10 +10,12 @@ import {
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 
+import i18n from './i18n';
 import App from './App.vue';
 
 vi.mock('vue');
 vi.mock('pinia');
+vi.mock('./i18n');
 
 describe('main', () => {
   const createAppMock = createApp as unknown as Mock;
@@ -39,6 +41,7 @@ describe('main', () => {
   it('Should create the application', () => {
     expect(createAppMock).toHaveBeenCalledWith(App);
     expect(createPiniaMock).toHaveBeenCalledOnce();
+    expect(appUseMock).toHaveBeenCalledWith(i18n);
     expect(appUseMock).toHaveBeenCalledWith(piniaMock);
     expect(appMountMock).toHaveBeenCalledWith('#app');
   });

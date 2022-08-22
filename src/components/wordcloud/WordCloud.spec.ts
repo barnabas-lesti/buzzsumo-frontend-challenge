@@ -28,7 +28,11 @@ vi.mock('../../stores/topics', () => ({
 describe('WordCloud', () => {
   const useTopicsStoreMock = useTopicsStore as unknown as Mock;
   const wrapperOptionsMock = {
+    mocks: {
+      $t: (message: string) => message,
+    },
     global: {
+
       plugins: [createTestingPinia({ createSpy: vi.fn })],
     },
   };
