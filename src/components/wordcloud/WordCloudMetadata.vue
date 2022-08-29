@@ -1,26 +1,20 @@
-<script lang="ts">
-import { defineComponent, type PropType } from 'vue';
-
-import type { Topic } from '../../stores/topics';
-import WordCloudMetadataMention from './WordCloudMetadataMention.vue';
-
+<script setup lang="ts">
 /**
  * WordCloud topic metadata display controlled component.
  */
-export default defineComponent({
-  components: {
-    WordCloudMetadataMention,
-  },
 
-  props: {
-    /**
-     * Topic to display the metadata for.
-     * @required
-     */
-    topic: {
-      required: true,
-      type: Object as PropType<Topic>,
-    },
+import type { PropType } from 'vue';
+import type { Topic } from '../../stores/topics';
+import WordCloudMetadataMention from './WordCloudMetadataMention.vue';
+
+const props = defineProps({
+  /**
+   * Topic to display the metadata for.
+   * @required
+   */
+  topic: {
+    required: true,
+    type: Object as PropType<Topic>,
   },
 });
 </script>
@@ -29,28 +23,25 @@ export default defineComponent({
   <div class="WordCloudMetadata">
     <div class="heading">
       {{ $t('wordcloud.metadata.info') }}
-      <span class="label">"{{ topic.label }}"</span>:
+      <span class="label">"{{ props.topic.label }}"</span>:
     </div>
     <WordCloudMetadataMention
-      :count="topic.volume"
-      :label="$t('wordcloud.metadata.mentions.total')"
+      :count="props.topic.volume"
+      labelKey="wordcloud.metadata.mentions.total"
       class="totalMentions"
     />
     <WordCloudMetadataMention
-      :count="topic.sentiment.positive"
-      :label="$t('wordcloud.metadata.mentions.positive')"
-      label="Positive Mentions"
+      :count="props.topic.sentiment.positive"
+      labelKey="wordcloud.metadata.mentions.positive"
       type="positive"
     />
     <WordCloudMetadataMention
-      :count="topic.sentiment.neutral"
-      :label="$t('wordcloud.metadata.mentions.neutral')"
-      label="Neutral Mentions"
+      :count="props.topic.sentiment.neutral"
+      labelKey="wordcloud.metadata.mentions.neutral"
     />
     <WordCloudMetadataMention
-      :count="topic.sentiment.negative"
-      :label="$t('wordcloud.metadata.mentions.negative')"
-      label="Negative Mentions"
+      :count="props.topic.sentiment.negative"
+      labelKey="wordcloud.metadata.mentions.negative"
       type="negative"
     />
   </div>

@@ -1,46 +1,26 @@
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { mapActions, mapState } from 'pinia';
+<script setup lang="ts">
+/**
+ * WordCloud main component. Displays topics from the application store in a word cloud.
+ */
 
+import { onMounted } from 'vue';
 import { useTopicsStore } from '../../stores/topics';
 import BaseLoader from '../base/BaseLoader.vue';
 import WordCloudChart from './WordCloudChart.vue';
 import WordCloudMetadata from './WordCloudMetadata.vue';
 
+const topicsStore = useTopicsStore();
+
 /**
- * WordCloud main component. Displays topics from the application store in a word cloud.
+ * Handles the topic selection event.
+ * @param topicId ID of the selected topic.
  */
-export default defineComponent({
-  components: {
-    BaseLoader,
-    WordCloudChart,
-    WordCloudMetadata,
-  },
+function onSelect(topicId: string) {
+  topicsStore.selectTopic(topicId);
+}
 
-  computed: {
-    ...mapState(useTopicsStore, [
-      'isLoading',
-      'topics',
-      'selectedTopicId',
-      'selectedTopic',
-    ]),
-  },
-
-  methods: {
-    ...mapActions(useTopicsStore, ['selectTopic', 'fetchTopics']),
-
-    /**
-     * Handles the topic selection event.
-     * @param topicId ID of the selected topic.
-     */
-    onSelect(topicId: string) {
-      this.selectTopic(topicId);
-    },
-  },
-
-  mounted() {
-    this.fetchTopics();
-  },
+onMounted(() => {
+  topicsStore.fetchTopics();
 });
 </script>
 
@@ -48,22 +28,22 @@ export default defineComponent({
   <div class="WordCloud">
     <h1>{{ $t('wordcloud.title') }}</h1>
 
-    <div v-if="isLoading" class="loaderContainer">
+    <div v-if="topicsStore.isLoading" class="loaderContainer">
       <BaseLoader />
     </div>
-    <div v-else-if="!topics.length" class="noTopicsContainer">
+    <div v-else-if="!topicsStore.topics.length" class="noTopicsContainer">
       {{ $t('wordcloud.noTopics') }}
     </div>
     <div v-else class="content">
       <WordCloudChart
-        :topics="topics"
-        :selectedTopicId="selectedTopicId"
+        :topics="topicsStore.topics"
+        :selectedTopicId="topicsStore.selectedTopicId"
         @select="onSelect"
         class="chart"
       />
       <WordCloudMetadata
-        v-if="selectedTopic"
-        :topic="selectedTopic"
+        v-if="topicsStore.selectedTopic"
+        :topic="topicsStore.selectedTopic"
         class="metadata"
       />
     </div>
