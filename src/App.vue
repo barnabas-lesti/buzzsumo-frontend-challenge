@@ -1,16 +1,9 @@
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-import WordCloud from './components/wordcloud/WordCloud.vue';
-
+<script setup lang="ts">
 /**
  * Main application component.
  */
-export default defineComponent({
-  components: {
-    WordCloud,
-  },
-});
+
+import WordCloud from './components/wordcloud/WordCloud.vue';
 </script>
 
 <template>

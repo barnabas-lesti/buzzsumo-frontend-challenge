@@ -1,40 +1,40 @@
-<script lang="ts">
-import { defineComponent, type PropType } from 'vue';
-
+<script setup lang="ts">
 /**
  * WordCloud topic metadata mention display controlled component.
  */
-export default defineComponent({
-  props: {
-    /**
-     * Label to display for the topic.
-     * @required
-     */
-    label: {
-      required: true,
-      type: String,
-    },
 
-    /**
-     * Mention count of the topic to display.
-     */
-    count: {
-      type: Number,
-    },
+import type { PropType } from 'vue';
 
-    /**
-     * Type of the mention, `positive` or `negative`.
-     */
-    type: {
-      type: String as PropType<'positive' | 'negative'>,
-    },
+const props = defineProps({
+  /**
+   * Label key for the label to display for the topic.
+   * @required
+   */
+  labelKey: {
+    required: true,
+    type: String,
+  },
+
+  /**
+   * Mention count of the topic to display.
+   */
+  count: {
+    type: Number,
+  },
+
+  /**
+   * Type of the mention, `positive` or `negative`.
+   */
+  type: {
+    type: String as PropType<'positive' | 'negative'>,
   },
 });
 </script>
 
 <template>
   <div class="WordCloudMetadataMention">
-    {{ label }}: <span :class="['count', type]">{{ count || 0 }}</span>
+    {{ $t(props.labelKey) }}:
+    <span :class="['count', props.type]">{{ props.count || 0 }}</span>
   </div>
 </template>
 

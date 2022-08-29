@@ -1,10 +1,7 @@
-<script lang="ts">
-import { defineComponent } from 'vue';
-
+<script setup lang="ts">
 /**
  * Base component to display a loading animation.
  */
-export default defineComponent({});
 </script>
 
 <template>

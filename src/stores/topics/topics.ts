@@ -1,105 +1,110 @@
 import { defineStore } from 'pinia';
-
+import { computed, ref } from 'vue';
 import { env, http } from '../utils';
 import type { Topic, TopicSource } from './types';
 
 /**
  * Topics store factory function.
  */
-export const useTopicsStore = defineStore('topics', {
-  state: () => ({
-    /**
-     * Loading state indicator of the topics.
-     */
-    isLoading: false,
+export const useTopicsStore = defineStore('topics', () => {
+  /**
+   * Loading state indicator of the topics.
+   */
+  const isLoading = ref(false);
 
-    /**
-     * ID of the selected topic.
-     */
-    selectedTopicId: '',
+  /**
+   * ID of the selected topic.
+   */
+  const selectedTopicId = ref('');
 
-    /**
-     * Loaded topics array.
-     */
-    topics: [] as Topic[],
-  }),
+  /**
+   * Loaded topics array.
+   */
+  const topics = ref<Topic[]>([]);
 
-  getters: {
-    /**
-     * Selected topics getter that filters the `topics` array using the `selectedTopicId`.
-     * @param state Root state.
-     */
-    selectedTopic: (state) =>
-      state.topics.filter((topic) => state.selectedTopicId === topic.id)[0] ||
-      null,
-  },
+  /**
+   * Selected topics getter that filters the `topics` array using the `selectedTopicId`.
+   * @param state Root state.
+   */
+  const selectedTopic = computed(
+    () =>
+      topics.value.filter((topic) => selectedTopicId.value === topic.id)[0] ||
+      null
+  );
 
-  actions: {
-    /**
-     * Sets the `selectedTopicId` in the store.
-     * @param topicId ID of the selected topic.
-     */
-    selectTopic(topicId: string) {
-      this.selectedTopicId = topicId;
-    },
+  /**
+   * Sets the `selectedTopicId` in the store.
+   * @param topicId ID of the selected topic.
+   */
+  function selectTopic(topicId: string) {
+    selectedTopicId.value = topicId;
+  }
 
-    /**
-     * Asynchronously loads the topics from an external API based on the `CLIENT_TOPICS_API_URL` environment
-     * variable and maps the `TopicSource`-s to `Topic`-s.
-     */
-    async fetchTopics() {
-      this._startLoading();
+  /**
+   * Asynchronously loads the topics from an external API based on the `CLIENT_TOPICS_API_URL` environment
+   * variable and maps the `TopicSource`-s to `Topic`-s.
+   */
+  async function fetchTopics() {
+    _startLoading();
 
-      const { topics: topicSources } = await http.get<{
-        topics: TopicSource[];
-      }>(env.CLIENT_TOPICS_API_URL);
-      const topics = this._mapTopicSourcesToTopics(topicSources);
-      this._setTopics(topics);
+    const { topics: topicSources } = await http.get<{
+      topics: TopicSource[];
+    }>(env.CLIENT_TOPICS_API_URL);
+    const topics = _mapTopicSourcesToTopics(topicSources);
+    _setTopics(topics);
 
-      this._stopLoading();
-    },
+    _stopLoading();
+  }
 
-    /**
-     * Sets the `isLoading` flag to `true`.
-     * @private
-     */
-    _startLoading() {
-      this.isLoading = true;
-    },
+  /**
+   * Sets the `isLoading` flag to `true`.
+   * @private
+   */
+  function _startLoading() {
+    isLoading.value = true;
+  }
 
-    /**
-     * Sets the `isLoading` flag to `false`.
-     * @private
-     */
-    _stopLoading() {
-      this.isLoading = false;
-    },
+  /**
+   * Sets the `isLoading` flag to `false`.
+   * @private
+   */
+  function _stopLoading() {
+    isLoading.value = false;
+  }
 
-    /**
-     * Sets the states `topics` array with the provided `newTopics` argument.
-     * @param newTopics New topics array.
-     * @private
-     */
-    _setTopics(newTopics: Topic[]) {
-      this.topics = newTopics;
-    },
+  /**
+   * Sets the states `topics` array with the provided `newTopics` argument.
+   * @param newTopics New topics array.
+   * @private
+   */
+  function _setTopics(newTopics: Topic[]) {
+    topics.value = newTopics;
+  }
 
-    /**
-     * Converts a `TopicSource` array to a `Topic` array that only
-     * has properties what is used on the client side.
-     * @param topicSources `TopicSource` array.
-     * @private
-     */
-    _mapTopicSourcesToTopics(topicSources: TopicSource[]): Topic[] {
-      return topicSources.map(
-        ({ id, label, volume, sentiment, sentimentScore }) => ({
-          id,
-          label,
-          volume,
-          sentiment,
-          sentimentScore,
-        })
-      );
-    },
-  },
+  /**
+   * Converts a `TopicSource` array to a `Topic` array that only
+   * has properties what is used on the client side.
+   * @param topicSources `TopicSource` array.
+   * @private
+   */
+  function _mapTopicSourcesToTopics(topicSources: TopicSource[]): Topic[] {
+    return topicSources.map(
+      ({ id, label, volume, sentiment, sentimentScore }) => ({
+        id,
+        label,
+        volume,
+        sentiment,
+        sentimentScore,
+      })
+    );
+  }
+
+  return {
+    isLoading,
+    selectedTopicId,
+    topics,
+    selectedTopic,
+    selectTopic,
+    fetchTopics,
+  };
 });
