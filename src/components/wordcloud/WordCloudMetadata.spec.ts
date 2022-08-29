@@ -10,6 +10,9 @@ describe('WordCloudMetadata', () => {
   describe('When a valid topic is provided', () => {
     beforeEach(() => {
       wrapper = shallowMount(WordCloudMetadata, {
+        mocks: {
+          $t: (message: string) => message,
+        },
         props: {
           topic: topicMock,
         },

@@ -46,13 +46,13 @@ export default defineComponent({
 
 <template>
   <div class="WordCloud">
-    <h1>My Topics Challenge</h1>
+    <h1>{{ $t('wordcloud.title') }}</h1>
 
     <div v-if="isLoading" class="loaderContainer">
       <BaseLoader />
     </div>
     <div v-else-if="!topics.length" class="noTopicsContainer">
-      No Topics to display
+      {{ $t('wordcloud.noTopics') }}
     </div>
     <div v-else class="content">
       <WordCloudChart
