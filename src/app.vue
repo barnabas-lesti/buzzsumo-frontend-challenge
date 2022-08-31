@@ -3,11 +3,11 @@
  * Main application component.
  */
 
-import WordCloud from './components/wordcloud/WordCloud.vue';
+import WordCloud from './components/word-cloud/word-cloud.vue';
 </script>
 
 <template>
-  <div class="App">
-    <WordCloud />
+  <div class="app">
+    <word-cloud />
   </div>
 </template>

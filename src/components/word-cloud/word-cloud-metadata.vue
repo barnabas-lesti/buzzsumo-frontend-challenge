@@ -4,8 +4,8 @@
  */
 
 import type { PropType } from 'vue';
-import type { Topic } from '../../stores/topics';
-import WordCloudMetadataMention from './WordCloudMetadataMention.vue';
+import type { Topic } from '@/stores/topics';
+import WordCloudMetadataMention from './word-cloud-metadata-mention.vue';
 
 const props = defineProps({
   /**
@@ -20,41 +20,41 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="WordCloudMetadata">
+  <div class="word-cloud-metadata">
     <div class="heading">
-      {{ $t('wordcloud.metadata.info') }}
+      {{ $t('components.wordCloudMetadata.info') }}
       <span class="label">"{{ props.topic.label }}"</span>:
     </div>
-    <WordCloudMetadataMention
+    <word-cloud-metadata-mention
       :count="props.topic.volume"
-      labelKey="wordcloud.metadata.mentions.total"
-      class="totalMentions"
+      label-key="components.wordCloudMetadata.mentions.total"
+      class="total-mentions"
     />
-    <WordCloudMetadataMention
+    <word-cloud-metadata-mention
       :count="props.topic.sentiment.positive"
-      labelKey="wordcloud.metadata.mentions.positive"
+      label-key="components.wordCloudMetadata.mentions.positive"
       type="positive"
     />
-    <WordCloudMetadataMention
+    <word-cloud-metadata-mention
       :count="props.topic.sentiment.neutral"
-      labelKey="wordcloud.metadata.mentions.neutral"
+      label-key="components.wordCloudMetadata.mentions.neutral"
     />
-    <WordCloudMetadataMention
+    <word-cloud-metadata-mention
       :count="props.topic.sentiment.negative"
-      labelKey="wordcloud.metadata.mentions.negative"
+      label-key="components.wordCloudMetadata.mentions.negative"
       type="negative"
     />
   </div>
 </template>
 
 <style scoped lang="scss">
-.WordCloudMetadata {
+.word-cloud-metadata {
   .label {
     font-weight: bold;
   }
 
   .heading,
-  .totalMentions {
+  .total-mentions {
     margin-bottom: 0.5rem;
   }
 }

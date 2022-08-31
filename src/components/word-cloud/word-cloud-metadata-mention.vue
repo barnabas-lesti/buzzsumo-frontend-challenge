@@ -32,14 +32,14 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="WordCloudMetadataMention">
+  <div class="word-cloud-metadata-mention">
     {{ $t(props.labelKey) }}:
     <span :class="['count', props.type]">{{ props.count || 0 }}</span>
   </div>
 </template>
 
 <style scoped lang="scss">
-.WordCloudMetadataMention {
+.word-cloud-metadata-mention {
   .count {
     font-weight: bold;
   }

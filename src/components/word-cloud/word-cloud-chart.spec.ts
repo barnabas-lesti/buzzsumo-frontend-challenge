@@ -9,13 +9,12 @@ import {
 } from 'vitest';
 import { mount, VueWrapper } from '@vue/test-utils';
 import * as Highcharts from 'highcharts';
-
 import {
   greenTopicMock,
   greyTopicMock,
   redTopicMock,
-} from '../../stores/topics/topics.mock';
-import WordCloudChart from './WordCloudChart.vue';
+} from '@/stores/topics/topics.mock';
+import WordCloudChart from './word-cloud-chart.vue';
 
 vi.mock('highcharts', () => ({
   chart: vi.fn(),

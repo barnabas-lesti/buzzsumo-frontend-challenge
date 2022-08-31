@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { mount, VueWrapper } from '@vue/test-utils';
-
-import WordCloudMetadataMention from './WordCloudMetadataMention.vue';
+import WordCloudMetadataMention from './word-cloud-metadata-mention.vue';
 
 describe('WordCloudMetadataMention', () => {
   const labelMock = 'labelMock';

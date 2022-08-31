@@ -9,7 +9,6 @@ import {
   type SpyInstance,
 } from 'vitest';
 import axios from 'axios';
-
 import { env } from './env';
 import { http } from './http';
 

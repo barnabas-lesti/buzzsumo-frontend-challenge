@@ -6,7 +6,7 @@
 import { onMounted, ref, type PropType } from 'vue';
 import * as Highcharts from 'highcharts';
 import WordCloud from 'highcharts/modules/wordcloud';
-import type { Topic } from '../../stores/topics';
+import type { Topic } from '@/stores/topics';
 
 interface TopicPoint extends Highcharts.Point {
   id: string;
@@ -131,11 +131,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="WordCloudChart" ref="chartElement"></div>
+  <div class="word-cloud-chart" ref="chartElement"></div>
 </template>
 
 <style scoped lang="scss">
-.WordCloudChart {
+.word-cloud-chart {
   &:deep(.highcharts-point-select) {
     text-decoration: underline;
   }

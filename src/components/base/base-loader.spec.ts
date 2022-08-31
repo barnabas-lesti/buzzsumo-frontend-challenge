@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { mount, VueWrapper } from '@vue/test-utils';
-
-import BaseLoader from './BaseLoader.vue';
+import BaseLoader from './base-loader.vue';
 
 describe('BaseLoader', () => {
   let wrapper: VueWrapper;

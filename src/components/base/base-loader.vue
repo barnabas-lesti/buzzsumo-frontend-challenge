@@ -5,13 +5,13 @@
 </script>
 
 <template>
-  <div class="BaseLoader">
+  <div class="base-loader">
     <span class="material-icons">sensors</span>
   </div>
 </template>
 
 <style scoped lang="scss">
-.BaseLoader {
+.base-loader {
   display: flex;
   font-size: 0;
 

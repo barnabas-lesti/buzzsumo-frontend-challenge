@@ -9,12 +9,11 @@ import {
 } from 'vitest';
 import { mount, shallowMount, VueWrapper } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
-
-import { useTopicsStore } from '../../stores/topics';
-import { topicMock } from '../../stores/topics/topics.mock';
-import WordCloud from './WordCloud.vue';
-import WordCloudChart from './WordCloudChart.vue';
-import WordCloudMetadata from './WordCloudMetadata.vue';
+import { useTopicsStore } from '@/stores/topics';
+import { topicMock } from '@/stores/topics/topics.mock';
+import WordCloud from './word-cloud.vue';
+import WordCloudChart from './word-cloud-chart.vue';
+import WordCloudMetadata from './word-cloud-metadata.vue';
 
 vi.mock('../../stores/topics', () => ({
   useTopicsStore: vi.fn(() => ({
@@ -32,7 +31,6 @@ describe('WordCloud', () => {
       $t: (message: string) => message,
     },
     global: {
-
       plugins: [createTestingPinia({ createSpy: vi.fn })],
     },
   };
@@ -117,7 +115,8 @@ describe('WordCloud', () => {
         const selectTopicSpy = vi
           .spyOn(WordCloud.methods, 'selectTopic' as never)
           .mockReturnValue({});
-        WordCloud.methods?.onSelect(topicMock.id);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (WordCloud.methods as any).onSelect(topicMock.id);
         expect(selectTopicSpy).toHaveBeenCalledWith(topicMock.id);
       });
     });
