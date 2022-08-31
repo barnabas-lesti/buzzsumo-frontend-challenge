@@ -1,8 +1,12 @@
-components.wordCloud.title:                     'My Topics Challenge'
-components.wordCloud.noTopics:                  'No Topics to display'
+components.layoutFooter.copyright: Dummyright © 2022 Barnabas Lesti
 
-components.wordCloudMetadata.info:              'Information on topic'
-components.wordCloudMetadata.mentions.total:    'Total Mentions'
-components.wordCloudMetadata.mentions.positive: 'Positive Mentions'
-components.wordCloudMetadata.mentions.neutral:  'Neutral Mentions'
-components.wordCloudMetadata.mentions.negative: 'Negative Mentions'
+components.layoutHeader.brand: BSFC
+
+components.wordCloud.title:    My Topics Challenge
+components.wordCloud.noTopics: No Topics to display
+
+components.wordCloudMetadata.info:              Information on topic
+components.wordCloudMetadata.mentions.total:    Total Mentions
+components.wordCloudMetadata.mentions.positive: Positive Mentions
+components.wordCloudMetadata.mentions.neutral:  Neutral Mentions
+components.wordCloudMetadata.mentions.negative: Negative Mentions
