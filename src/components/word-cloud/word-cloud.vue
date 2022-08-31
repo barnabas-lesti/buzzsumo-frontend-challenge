@@ -4,10 +4,10 @@
  */
 
 import { onMounted } from 'vue';
-import { useTopicsStore } from '../../stores/topics';
-import BaseLoader from '../base/BaseLoader.vue';
-import WordCloudChart from './WordCloudChart.vue';
-import WordCloudMetadata from './WordCloudMetadata.vue';
+import { useTopicsStore } from '@/stores/topics';
+import BaseLoader from '../base/base-loader.vue';
+import WordCloudChart from './word-cloud-chart.vue';
+import WordCloudMetadata from './word-cloud-metadata.vue';
 
 const topicsStore = useTopicsStore();
 
@@ -25,23 +25,23 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="WordCloud">
-    <h1>{{ $t('wordcloud.title') }}</h1>
+  <div class="word-cloud">
+    <h1>{{ $t('components.wordCloud.title') }}</h1>
 
-    <div v-if="topicsStore.isLoading" class="loaderContainer">
-      <BaseLoader />
+    <div v-if="topicsStore.isLoading" class="loader-container">
+      <base-loader />
     </div>
-    <div v-else-if="!topicsStore.topics.length" class="noTopicsContainer">
-      {{ $t('wordcloud.noTopics') }}
+    <div v-else-if="!topicsStore.topics.length" class="no-topics-container">
+      {{ $t('components.wordCloud.noTopics') }}
     </div>
     <div v-else class="content">
-      <WordCloudChart
+      <word-cloud-chart
         :topics="topicsStore.topics"
-        :selectedTopicId="topicsStore.selectedTopicId"
+        :selected-topic-id="topicsStore.selectedTopicId"
         @select="onSelect"
         class="chart"
       />
-      <WordCloudMetadata
+      <word-cloud-metadata
         v-if="topicsStore.selectedTopic"
         :topic="topicsStore.selectedTopic"
         class="metadata"
@@ -51,13 +51,13 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-.WordCloud {
+.word-cloud {
   $chartHeight: 400px;
   $metadataWidth: 350px;
   $gap: 1rem;
 
-  .loaderContainer,
-  .noTopicsContainer {
+  .loader-container,
+  .no-topics-container {
     display: flex;
     align-items: center;
     justify-content: center;

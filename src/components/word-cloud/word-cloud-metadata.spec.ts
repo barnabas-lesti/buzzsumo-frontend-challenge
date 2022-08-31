@@ -1,8 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { shallowMount, VueWrapper } from '@vue/test-utils';
-
-import { topicMock } from '../../stores/topics/topics.mock';
-import WordCloudMetadata from './WordCloudMetadata.vue';
+import { topicMock } from '@/stores/topics/topics.mock';
+import WordCloudMetadata from './word-cloud-metadata.vue';
 
 describe('WordCloudMetadata', () => {
   let wrapper: VueWrapper;
