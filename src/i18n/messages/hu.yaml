@@ -1,0 +1,15 @@
+components.layoutFooter.copyright: Dummyright © 2022 Barnabas Lesti
+
+components.layoutHeader.brand: BSFC
+
+components.layoutHeaderLanguageSelector.language.en: ENG
+components.layoutHeaderLanguageSelector.language.hu: HUN
+
+components.wordCloud.title:    Topikjaim probatetel
+components.wordCloud.noTopics: Nincs megjelenitendo topic
+
+components.wordCloudMetadata.info:              Informacio a topikrol
+components.wordCloudMetadata.mentions.total:    Osszes emlites
+components.wordCloudMetadata.mentions.positive: Pozitiv emlitesek
+components.wordCloudMetadata.mentions.neutral:  Semleges emlitesek
+components.wordCloudMetadata.mentions.negative: Negativ emlitesek

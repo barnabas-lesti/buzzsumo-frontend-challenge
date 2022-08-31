@@ -2,6 +2,9 @@ components.layoutFooter.copyright: Dummyright © 2022 Barnabas Lesti
 
 components.layoutHeader.brand: BSFC
 
+components.layoutHeaderLanguageSelector.language.en: ENG
+components.layoutHeaderLanguageSelector.language.hu: HUN
+
 components.wordCloud.title:    My Topics Challenge
 components.wordCloud.noTopics: No Topics to display
 
