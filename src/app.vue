@@ -4,14 +4,13 @@
  */
 
 import { LayoutFooter, LayoutHeader } from './components/layout';
-import { WordCloud } from './components/word-cloud';
 </script>
 
 <template>
   <div class="app">
     <layout-header />
     <div class="content">
-      <word-cloud />
+      <router-view />
     </div>
     <layout-footer />
   </div>
