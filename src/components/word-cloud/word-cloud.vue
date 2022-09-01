@@ -3,9 +3,7 @@
  * WordCloud main component. Displays topics from the application store in a word cloud.
  */
 
-import { onMounted } from 'vue';
 import { useTopicsStore } from '@/stores/topics';
-import BaseLoader from '../base/base-loader.vue';
 import WordCloudChart from './word-cloud-chart.vue';
 import WordCloudMetadata from './word-cloud-metadata.vue';
 
@@ -19,19 +17,13 @@ function onSelect(topicId: string) {
   topicsStore.selectTopic(topicId);
 }
 
-onMounted(() => {
-  topicsStore.fetchTopics();
-});
+await topicsStore.fetchTopics();
 </script>
 
 <template>
   <div class="word-cloud">
     <h1>{{ $t('components.wordCloud.title') }}</h1>
-
-    <div v-if="topicsStore.isLoading" class="loader-container">
-      <base-loader />
-    </div>
-    <div v-else-if="!topicsStore.topics.length" class="no-topics-container">
+    <div v-if="!topicsStore.topics.length" class="no-topics-container">
       {{ $t('components.wordCloud.noTopics') }}
     </div>
     <div v-else class="content">
@@ -56,7 +48,6 @@ onMounted(() => {
   $metadataWidth: 350px;
   $gap: 1rem;
 
-  .loader-container,
   .no-topics-container {
     display: flex;
     align-items: center;
